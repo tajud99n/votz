@@ -15,8 +15,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'activation_token', 'status'
+        'name', 'email', 'password', 'provider_id', 'provider', 'status', 'admin'
     ];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -27,12 +29,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * Hash password
-     */
-    public function setPasswordAttribute($password)
+    public function profile()
     {
-        $this->attributes['password'] = bcrypt($password);
+        return $this->hasOne('App\Profile');
+    }
+
+    public function polls()
+    {
+        return $this->hasMany('App\Poll');
     }
 
 }

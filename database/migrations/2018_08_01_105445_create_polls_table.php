@@ -18,10 +18,10 @@ class CreatePollsTable extends Migration
             $table->integer('user_id');
             $table->string('title')->unique();
             $table->string('slug');
-            $table->enum('result_status', ['0','1']);
+            $table->enum('result_status', ['not-published','published']);
+            $table->enum('voting_status', ['in-progress','suspended', 'concluded']);
             $table->dateTime('deadline');
-            $table->dateTime('created_at')->useCurrent();
-            $table->dateTime('updated_at')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePollAttachmentTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePollAttachmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('poll_attachment', function (Blueprint $table) {
-            $table->integer('poll_id');
-            $table->string('attachment');
-            $table->string('description');
+        Schema::create('settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ class CreatePollAttachmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('poll_attachment');
+        Schema::dropIfExists('settings');
     }
 }

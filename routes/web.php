@@ -12,20 +12,19 @@
 */
 
 Route::get('/', function () { 
-    return view('user.dashboard');
+    return view('welcome');
 });
 
-//Registration
-Route::get('/register', 'RegistrationController@create');
-Route::post('/register', 'RegistrationController@store');
-Route::get('/verify', 'RegistrationController@edit');
+Route::get('/{provider}/auth', [
+    'uses'  => 'Auth\LoginController@redirectToProvider',
+    'as'    => 'social.auth'
+]);
 
-//Logging In
-Route::get('/login', 'SessionsController@create');
-Route::post('/login', 'SessionsController@store');
+Route::get('/{provider}/redirect', [
+    'uses'  => 'Auth\LoginController@handleProviderCallback',
+    'as'    => 'social.redirect'
+]);
 
-//Logged In
-Route::get('/dashboard','PollsController@index');
+Auth::routes();
 
-//Logout
-Route::post('/logout', 'SessionsController@destory');
+Route::get('/home', 'HomeController@index')->name('home');
