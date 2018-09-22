@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfileTable extends Migration
+class CreatePollAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile', function (Blueprint $table) {
-            $table->integer('user_id');
-            $table->string('avatar');
-            $table->mediumText('description')->nullable();
+        Schema::create('poll_attachments', function (Blueprint $table) {
+            $table->integer('poll_id');
+            $table->string('attachment');
+            $table->string('description');
+            $table->timestamps();            
         });
     }
 
@@ -27,6 +28,6 @@ class CreateProfileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile');
+        Schema::dropIfExists('poll_attachments');
     }
 }
