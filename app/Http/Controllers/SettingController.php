@@ -15,7 +15,7 @@ class SettingController extends Controller
     
     public function index()
     {
-        return view('settings')->with('setting', Setting::first());
+        return view('settings');
     }
 
     public function update()
