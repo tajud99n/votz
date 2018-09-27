@@ -14,6 +14,7 @@ class CreatePollAttachmentsTable extends Migration
     public function up()
     {
         Schema::create('poll_attachments', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('poll_id');
             $table->string('attachment');
             $table->string('description');

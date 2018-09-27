@@ -15,7 +15,7 @@ class SettingController extends Controller
     
     public function index()
     {
-        return view('settings');
+        return view('admin.settings.settings');
     }
 
     public function update()
