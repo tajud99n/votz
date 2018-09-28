@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('admin.includes.errors')
+    @include('includes.errors')
 
     <div class="card">
         <div class="card-header">
@@ -12,8 +12,8 @@
             <form action="{{ route('category.store') }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="name">name</label>
-                    <input type="text" name="name" class="form-control">
+                    <label for="category">Name</label>
+                    <input type="text" name="category" class="form-control">
                 </div>
 
                 <div class="form-group">

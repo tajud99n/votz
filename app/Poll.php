@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Poll extends Model
 {
-    protected $fillable = ['title', 'slug', 'result_status', 'voting_status', 'deadline'];
+    protected $fillable = ['title', 'slug', 'result_status', 'voting_status', 'deadline', 'category_id'];
 
     protected $dates = ['deleted_at'];
 

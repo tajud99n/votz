@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Session;
 use App\Category;
+use App\Poll;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
     
     /**
      * Display a listing of the resource.
@@ -20,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('category.index', ['categories' => Category::all()->paginate(5)]);
+        return view('admin.categories.index', ['categories' => Category::orderBy('created_at', 'desc')->paginate(3)]);
     }
 
     /**
@@ -30,7 +27,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -65,7 +62,12 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+        $in_progress = Poll::where('category_id', $id)->where('voting_status', 'in-progress')->get();
+        $concluded  = Poll::where('category_id', $id)->where('voting_status', 'concluded')->get();
+        $suspended = Poll::where('category_id', $id)->where('voting_status', 'suspended')->get();
+
+        return view('admin.categories.show', compact(['category', 'in_progress', 'concluded', 'suspended']));
     }
 
     /**
@@ -76,7 +78,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        return view('category.edit')->with('category', Category::find($id));
+        return view('admin.categories.edit')->with('category', Category::find($id));
     }
 
     /**
@@ -95,7 +97,8 @@ class CategoriesController extends Controller
         ]);
 
         $category->category = $request->category;
-        $category->slug = $category->category;
+        $category->slug = str_slug($category->category);
+        $category->save();
 
         Session::flash('success', 'Category successfully updated');
 

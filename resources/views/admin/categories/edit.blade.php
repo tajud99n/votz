@@ -2,18 +2,18 @@
 
 @section('content')
 
-   @include('admin.includes.errors')
+   @include('includes.errors')
 
     <div class="card">
-        <div class="card-header">
-            Update category: {{ $category->name }}
+        <div class="card-header text-center">
+            <strong>Update category:</strong> {{ $category->category }}
         </div>
         <div class="card-body">
             <form action="{{ route('category.update', ['id' => $category->id]) }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="name">name</label>
-                    <input type="text" name="name" value="{{ $category->name }}" class="form-control">
+                    <label for="category">Name</label>
+                    <input type="text" name="category" value="{{ $category->category }}" class="form-control">
                 </div>
 
                 <div class="form-group">
