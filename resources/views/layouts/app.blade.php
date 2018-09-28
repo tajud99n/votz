@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $settings->site_name }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -19,13 +19,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   <!--  <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}"> -->
+    @yield('styles')
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ $settings->site_name }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -72,8 +74,71 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row">
+                    @if(Auth::check())
+                        <div class="col-lg-4">
+                            @if (Auth::user()->profile)
+                                <img src="{{ asset(Auth::user()->profile->avatar) }}" alt="" width="60px" height="60px" style="border-radius: 50%">
+                            @else
+                                <img src="{{ asset('uploads/profile/a.png') }}" alt="Avatar" width="60px" height="60px" style="border-radius: 50%">
+                            @endif
+                            <ul class="list-group mt-2">
+                                <li class="list-group-item">
+                                    <a href="{{ route('home') }}">Home</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('user.profile') }}">My Profile</a>
+                                </li>
+                                @if(Auth::user()->admin)
+                                    <li class="list-group-item">
+                                        <a href="{{ route('category.create') }}">Create category</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="{{ route('categories') }}">Categories</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="{{ route('users') }}">Users</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="{{ route('polls') }}">All polls</a>
+                                    </li>
+                                @endif
+                                <li class="list-group-item">
+                                    <a href="">Create new poll</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="">My Polls</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="">Participated polls</a>
+                                </li>
+                                @if (Auth::user()->admin)
+                                    <li class="list-group-item">
+                                        <a href="{{ route('settings') }}">Site settings</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="col-lg-8">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
+    <!-- <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script>
+        @if (Session::has('success'))
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+
+        @if (Session::has('info'))
+            toastr.info ("{{ Session::get('info') }}");
+        @endif
+    </script> -->
+
+    @yield('scripts')
 </body>
 </html>

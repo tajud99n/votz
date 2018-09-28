@@ -28,7 +28,7 @@ Route::get('/{provider}/redirect', [
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
     
     # Super Admin  
     
@@ -101,11 +101,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     # Profile route
     Route::get('/user/profile', [
-        'uses'  => 'ProfilesController@index',
+        'uses'  => 'ProfileController@index',
         'as'    => 'user.profile'
     ]);
     Route::post('/user/profile/update', [
-        'uses'  => 'ProfilesController@update',
+        'uses'  => 'ProfileController@update',
         'as'    => 'user.profile.update'
     ]);
 

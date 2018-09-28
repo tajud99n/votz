@@ -17,8 +17,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('settings', Setting::first());
-        
+        if (Schema::hasTable('settings'))
+        {
+            View::share('settings', Setting::first());
+        }
         Schema::defaultStringLength(191);
     }
 
