@@ -6,7 +6,7 @@ use Auth;
 use File;
 use Hash;
 use Session;
-
+use JD\Cloudder\Facades\Cloudder;
 use App\Profile;
 use Illuminate\Http\Request;
 
@@ -44,7 +44,9 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
-            $user->profile->avatar = $this->uploadImage($request);
+            $result = $this->uploadImage($request);
+            $user->profile->avatar = $result['url'];
+            $user->profile->avatar_publicID = $result['public_id'];
         }
 
         $user->name = $request->name;
@@ -71,21 +73,20 @@ class ProfileController extends Controller
 
     protected function uploadImage($request)
     {
-        $avatar = $request->avatar;
+        $avatar = $request->file('avatar');
 
-        $avatar_new_name = time() . $avatar->getClientOriginalName();
+        Cloudder::upload($avatar);
 
-        $avatar->move('uploads' . DIRECTORY_SEPARATOR .'profile', $avatar_new_name);
+        $c = Cloudder::getResult();
 
         $old_profile = Auth::user()->profile;
 
-        $upload = DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'profile' . DIRECTORY_SEPARATOR . $avatar_new_name;
-
-        if (File::exists(public_path() . $old_profile->avatar))
+        if ($old_profile->avatar_publicID)
         {
-            File::delete(public_path() . $old_profile->avatar); 
+            Cloudder::destroyImage($old_profile->avatar_publicID);
+            Cloudder::delete($old_profile->avatar_publicID); 
         }
 
-        return $upload;
+        return $c;
     }
 }

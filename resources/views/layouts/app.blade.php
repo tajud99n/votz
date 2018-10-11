@@ -19,7 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-   <!--  <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}"> -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     @yield('styles')
 </head>
 <body>
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </nav>
-
+        @include('includes.search')
         <main class="py-4">
             <div class="container">
                 <div class="row">
@@ -103,15 +103,21 @@
                                     <li class="list-group-item">
                                         <a href="{{ route('polls') }}">All polls</a>
                                     </li>
+                                    <li class="list-group-item">
+                                        <a href="{{ route('polls.trashed') }}">Trashed polls</a>
+                                    </li>
                                 @endif
                                 <li class="list-group-item">
-                                    <a href="">Create new poll</a>
+                                    <a href="{{ route('poll.create') }}">Create new poll</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="">My Polls</a>
+                                    <a href="{{ route('poll.mypolls') }}">My Polls</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="">Participated polls</a>
+                                    <a href="{{ route('poll.participated') }}">Participated polls</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('poll.lastest') }}">Latest polls</a>
                                 </li>
                                 @if (Auth::user()->admin)
                                     <li class="list-group-item">
@@ -128,16 +134,8 @@
             </div>
         </main>
     </div>
-    <!-- <script src="{{ asset('js/toastr.min.js') }}"></script>
-    <script>
-        @if (Session::has('success'))
-            toastr.success("{{ Session::get('success') }}");
-        @endif
-
-        @if (Session::has('info'))
-            toastr.info ("{{ Session::get('info') }}");
-        @endif
-    </script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @include('includes.notification')
 
     @yield('scripts')
 </body>

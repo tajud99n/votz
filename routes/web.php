@@ -29,6 +29,14 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/results', function () {
+        $query = request('query');
+
+        $polls = \App\Poll::where('title', 'like', '%' . $query . '%')->where('voting_status', 'in-progress')->paginate(5);
+
+        return view('results', compact(['polls', 'query']));
+    });
     
     # Super Admin  
     
@@ -92,13 +100,17 @@ Route::group(['middleware' => 'auth'], function () {
             'uses'  => 'PollsController@index',
             'as'    => 'polls'
         ]);
-        Route::get('/polls/suspend', [
-            'uses'  => 'PollsController@suspend',
-            'as'    => 'poll.suspend'
+        Route::get('/polls/trashed', [
+            'uses'  => 'PollsController@trashed',
+            'as'    => 'polls.trashed'
         ]);
         Route::get('/polls/restore/{id}', [
             'uses' => 'PollsController@restore',
             'as'   => 'poll.restore'
+        ]);
+        Route::get('/poll/kill/{id}', [
+            'uses' => 'PollsController@kill',
+            'as' => 'poll.kill'
         ]);
 
     });
@@ -114,7 +126,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     # Polls routes
-    Route::get('/post/create', [
+    Route::get('/poll/create', [
         'uses'  => 'PollsController@create',
         'as'    => 'poll.create'
     ]);
@@ -130,7 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
         'uses'  => 'PollsController@edit',
         'as'    => 'poll.edit'
     ]);
-    Route::get('/poll/update/{slug}', [
+    Route::post('/poll/update/{slug}', [
         'uses'  => 'PollsController@update',
         'as'    => 'poll.update'
     ]);
@@ -138,9 +150,39 @@ Route::group(['middleware' => 'auth'], function () {
         'uses'  => 'PollsController@destroy',
         'as'    => 'poll.delete'
     ]);
+    Route::get('/poll/report/{poll}', [
+        'uses'  => 'DashboardController@report',
+        'as'    => 'poll.report'
+    ]);
+    Route::get('/poll/status/{status}', [
+        'uses'  => 'PollsController@status',
+        'as'    => 'poll.status'
+    ]);
+    Route::get('/polls/publish/{publish}', [
+        'uses' => 'PollsController@publish',
+        'as' => 'poll.publish'
+    ]);
+
+    # Dashboard routes
+    Route::get('/poll/mypolls', [
+        'uses'  => 'DashboardController@my_polls',
+        'as'    => 'poll.mypolls'
+    ]);
+    Route::get('/poll/participated', [
+        'uses'  => 'DashboardController@participated',
+        'as'    => 'poll.participated'
+    ]);
+    Route::get('/poll/lastest', [
+        'uses'  => 'DashboardController@latest',
+        'as'    => 'poll.lastest'
+    ]);
+    Route::get('/poll/participate/{slug}', [
+        'uses' => 'DashboardController@participate',
+        'as' => 'poll.participate'
+    ]);
 
     # Vote routes
-    Route::post('/poll/vote', [
+    Route::get('/poll/vote/{vote}', [
         'uses'  => 'VotesController@vote',
         'as'    => 'poll.vote'
     ]);

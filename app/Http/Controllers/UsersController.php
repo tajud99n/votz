@@ -15,7 +15,7 @@ class UsersController extends Controller
     
     public function index()
     {
-        return view('users.index', ['users' => User::all()->paginate(5)]);
+        return view('admin.users.index', ['users' => User::orderBy('created_at', 'desc')->paginate(5)]);
     }
 
     public function suspend($id)
@@ -31,7 +31,7 @@ class UsersController extends Controller
 
     public function suspended_users()
     {
-        return view('users.suspended', ['users' => Users::withTrashed()->paginate(5)]);
+        return view('admin.users.suspended', ['users' => Users::withTrashed()->paginate(5)]);
     }
 
     public function reinstate($id)

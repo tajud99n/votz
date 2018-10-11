@@ -1,8 +1,13 @@
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/dashboard">Company name</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="/logout">Sign out</a>
-        </li>
-      </ul>
-    </nav>
+<div class="container">
+        <div class="card">
+            
+                <form method="get" action="/results">
+                    <input class="form-control" name="query" placeholder="Type and hit Enter..." type="text">
+                    <a href="#" class="overlay_search-close">
+                        <span></span>
+                        <span></span>
+                    </a>
+                </form>
+            
+        </div>
+    </div>

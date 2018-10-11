@@ -2,11 +2,15 @@
 
 namespace App;
 
+use Auth;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Vote extends Model
 {
     protected $fillable = ['poll_id', 'user_id', 'poll_attachment_id', 'created_at'];
+    public $timestamps = false;
+
     
     public function poll()
     {
@@ -17,4 +21,10 @@ class Vote extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function poll_attachment()
+    {
+        return $this->belongsTo('App\Poll_attachment');
+    }
+
 }
