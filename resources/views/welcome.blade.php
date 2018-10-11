@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="links">
-                    <!-- <a href="{{ route('social.auth', ['provider' => 'google']) }}">Gmail</a>| -->
+                    <a href="{{ route('social.auth', ['provider' => 'google']) }}">Gmail</a>|
                     <a href="{{ route('register') }}">Register</a>|
                     <a href="{{ route('login') }}">Login</a>
                 </div>
