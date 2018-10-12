@@ -52,7 +52,6 @@ class PollsController extends Controller
             
             //process attachment
             $attachment = $request->file('attachment');
-            dd($attachment);
             $count = count($attachment);
             $description = $request->description;
 
