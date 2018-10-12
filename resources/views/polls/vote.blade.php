@@ -20,7 +20,7 @@
                         <div class="col-md-6 center-block text-center">
                             <img src="{{ asset($poll_attachment->attachment) }}" alt="" width="90px" height="90px">
                             <p>{{ $poll_attachment->description }}</p>
-                            @if ($poll->id != Auth::id())
+                            @if ($poll->user_id != Auth::id())
                             @if (!$poll->already_voted_by_auth_user())
                             <a href="{{ route('poll.vote', ['vote' => base64_encode($poll->id.':*/*:'.$poll_attachment->id)]) }}" class="btn btn-success btn-xs">Vote</a>
                             @endif

@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label for="deadline">Set deadline</label>
-                    <p>Current deadline: {{ $poll->deadline }}</p>
+                    <p>Current deadline: <strong>{{ $poll->deadline }}</strong></p>
                     <input type="date" name="deadline[]" id="deadline" class="form-control">
                     <br>
                     <input type="time" name="deadline[]" id="deadline" class="form-control">
