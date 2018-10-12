@@ -51,8 +51,9 @@ class PollsController extends Controller
             ]);
             
             //process attachment
-            $count = count($request->attachment);
             $attachment = $request->file('attachment');
+            dd($attachment);
+            $count = count($attachment);
             $description = $request->description;
 
             for ($i=0; $i < $count ; $i++) {
