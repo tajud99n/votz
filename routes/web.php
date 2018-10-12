@@ -43,11 +43,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'admin'], function () {
         // Site settings
         Route::get('/settings', [
-            'uses' => 'SettingsController@index',
+            'uses' => 'SettingController@index',
             'as' => 'settings'
         ]);
         Route::post('/settings/update', [
-            'uses' => 'SettingsController@update',
+            'uses' => 'SettingController@update',
             'as' => 'settings.update'
         ]);
 

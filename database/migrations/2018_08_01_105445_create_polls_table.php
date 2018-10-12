@@ -16,7 +16,7 @@ class CreatePollsTable extends Migration
         Schema::create('polls', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('slug');
             $table->enum('result_status', ['not-published','published']);
             $table->enum('voting_status', ['in-progress','suspended', 'concluded']);
