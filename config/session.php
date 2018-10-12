@@ -151,7 +151,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', 'votz.com'),
+    'domain' => env('SESSION_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------
