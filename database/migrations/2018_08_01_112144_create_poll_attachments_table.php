@@ -18,6 +18,7 @@ class CreatePollAttachmentsTable extends Migration
             $table->integer('poll_id');
             $table->string('attachment');
             $table->string('description');
+            $table->string('attachment_publicID')->nullable();
             $table->timestamps();            
         });
     }

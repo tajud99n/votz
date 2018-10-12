@@ -21,6 +21,7 @@ class CreatePollsTable extends Migration
             $table->enum('result_status', ['not-published','published']);
             $table->enum('voting_status', ['in-progress','suspended', 'concluded']);
             $table->dateTime('deadline');
+            $table->integer('category_id');
             $table->timestamps();
             $table->softDeletes();
         });

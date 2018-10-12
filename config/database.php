@@ -1,5 +1,5 @@
 <?php
-$url = env('JAWSDB_URL');
+$url = env('JAWSDB_MARIA_URL');
 $dbparts = parse_url($url);
 $hostname = $dbparts['host'];
 $username = $dbparts['user'];

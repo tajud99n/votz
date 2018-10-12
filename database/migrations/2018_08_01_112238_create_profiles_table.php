@@ -18,6 +18,7 @@ class CreateProfilesTable extends Migration
             $table->string('avatar')->nullable();
             $table->integer('user_id');
             $table->mediumText('description')->nullable();
+            $table->string('avatar_publicID')->nullable();
             $table->timestamps();
         });
     }
